@@ -1,0 +1,26 @@
+﻿<h1>Student Helper AI Agent</h1>
+
+<div style="border:1px solid #ddd; padding:12px; height:400px; overflow-y:auto; border-radius:6px; margin-bottom:10px;">
+    @foreach (var msg in Model.Messages)
+    {
+        if (msg.Item1 == "user")
+        {
+            <div style="margin:8px 0; text-align:right;">
+                <strong>You:</strong> @msg.Item2
+            </div>
+        }
+        else
+        {
+            <div style="margin:8px 0; text-align:left;">
+                <strong>AI:</strong> @Html.Raw(msg.Item2.Replace("\n", "<br/>"))
+            </div>
+        }
+    }
+
+</div>
+
+<form asp-action="Send" method="post" style="display:flex; gap:10px;">
+    @Html.AntiForgeryToken()
+    <input type="text" name="UserInput" value="@Model.UserInput" placeholder="Type your message..." style="flex:1; padding:6px;" />
+    <button type="submit" style="padding:6px 12px;">Send</button>
+</form>
